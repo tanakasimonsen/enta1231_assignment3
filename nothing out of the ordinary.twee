@@ -1,0 +1,616 @@
+:: StoryTitle
+nothing out of the ordinary
+
+
+:: StoryData
+{
+  "ifid": "DCA5C593-ECFA-4EB1-8FA2-24B99729E898",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "introduction",
+  "zoom": 1
+}
+
+
+:: "Everything is fine" {"position":"650,800","size":"100,100"}
+=><=
+(set: $coping to "deny")
+
+(enchant:?player, (text-style:"italic"))
+|player>["It was routine" ], you tell yourself. It's a Friday night, people get fucked up and drive home. 
+
+People get stopped all the time. Good, bad or indifferent.
+
+(enchant:?player, (text-style:"italic"))
+|player>["People get stopped allllll the time " ]
+
+(enchant:?player, (text-style:"italic"))
+|player>["Alll the time..."]
+
+(enchant:?player, (text-style:"italic"))
+|player>["Alll the time..."] you whisper, eyes darting to the mirrors as you drive away
+
+[["Just keep fucking going"->event3]]
+
+
+:: "What if I've fucked everything?" {"position":"800,800","size":"100,100"}
+=><=
+
+<img src="images/panic_wheel.png" alt="shaking hands on the steering wheel, blurred dashboard lights">
+
+(set: $coping to "panic")
+
+(enchant:?player, (text-style:"italic"))
+|player>["You've fucked your sister over, WHY DID YOU HESISTATE? THEY'RE ALL GONNA FIGURE IT OUT SOME DAY!"]
+
+You inhale quickly as if you've been caught, staring hard into the heat. 
+
+
+(enchant:?player, (text-style:"italic"))
+|player>["Take it easy it babe"]
+
+
+You feel the sweat beading on your forehead, your tummy beginning to churn. 
+
+If they noticed you… what does that mean for her?
+
+[["Just gotta keep going"->event3]]
+
+
+
+
+:: Ask what this is about {"position":"1225,575","size":"100,100"}
+=><=
+  
+  (enchant:?player, (text-style:"italic"))
+  
+  |player>["“Is there a reason I’ve been stopped?” ]  you ask, hands tight on the wheel. 
+  
+You mentally face palm.
+(enchant:?player, (text-style:"italic"))
+  |player>["As if he's gonna tell you” ] 
+  
+  
+
+The officer straightens, studying you for a moment before repeating the request, slower this time.
+
+You smile softly and hand over your license. After a brief check, they return it without comment and motion for you to move along.
+
+
+  =><=
+
+[/[Continue driving? ->event2]]
+
+
+:: AskCalm {"position":"375,400","size":"100,100"}
+=><=
+
+(set: $reputation to $reputation + 1)
+(set: $authority to $authority + 1)
+
+(enchant:?player, (text-style:"italic"))
+|player>["Is there a problem, officer?"]
+
+The officer studies you for a moment, then nods slightly.
+
+|officer>["Routine checkpoint. Thank you for cooperating."]
+
+(set: $checkpointState to "calm")
+[[Continue->event2]]
+
+
+
+:: AskRude {"position":"575,400","size":"100,100"}
+=><=
+
+(set: $reputation to $reputation - 1)
+(set: $defiance to $defiance + 1)
+(set: $heat to $heat + 1)
+
+(enchant:?player, (text-style:"italic"))
+|player>["What’s this about? I haven’t done anything wrong."]
+
+The officer’s jaw tightens. He doesn’t answer right away.
+
+|officer>["License. Now."]
+
+(set: $checkpointState to "defiant")
+[[Continue->event2]]
+
+
+
+:: Call Mama {"position":"375,800","size":"100,100"}
+=><=
+
+(set: $CallMama to true)
+(set: $coping to "reachout")
+
+<img src="images/phone_mama.png" alt="phone glowing beside the steering wheel, dialing mama">
+
+
+You dial Mama's number, she always knows what to say.
+
+[[Listen to Mama's voice->event3]]
+
+
+:: Call for help {"position":"475,1325","size":"100,100"}
+=><=
+
+<img src="images/blowout.png" alt="flashlight beam on a shredded tire on an empty road at night">
+
+(set: $calledHelp to true)
+
+(if: $defiance >= 1)[(set: $heat to $heat + 2)]
+(else:)[(set: $heat to $heat + 1)]
+
+You pull your phone out and call RACV.
+
+(enchant:?player, (text-style:"italic"))
+|player>["this still counts as laying low…"]
+
+As you wait, the reality of being stuck settles in.
+
+Whatever happens next, it won’t be on your time.
+
+(if: $heat >= 2)[(set: $riskState to "high")]
+(else-if: $heat >= 1)[(set: $riskState to "medium")]
+(else:)[(set: $riskState to "low")]
+
+[[Wait->arrival]]
+
+
+
+:: Get out of the car {"position":"600,1200","size":"100,100"}
+=><=
+
+You inspect the damage and quite frankly, you don't know what you're looking at. All you know is that the tires fucked and you have no spare. 
+
+Opening the door, you slump back into the drivers seat, hazards blinking
+
+The road is empty in both directions.
+
+Officers about 15km from where you came...
+
+And the next best stop is another 30...
+
+
+[[Call for help->Call for help]]
+[[Try to handle it yourself->Try to handle it yourself]]
+
+
+
+:: Light a cigarette? {"position":"525,800","size":"100,100"}
+=><=
+
+(set: $coping to "deny")
+<img src="images/cigarette.png" alt="close-up of a cigarette ember in a dark car interior">
+
+(if: $defiance >= 1)[
+You flick the lighter too close.
+The flame sears your skin before the cigarette catches.
+You hiss, shaking your hand as pain shoots up your fingers.
+
+You take a deep drag, exhaling through your nose, trying to make sense of what happened.
+]
+
+=><=
+
+(else-if: $authority >= 1)[
+You think about lighting one — then don’t.
+Your hands are steady. Your chest isn’t.
+You put the cigarette back in the pack.
+]
+
+=><=
+(else-if: $compliance >= 1)[
+You light it carefully.
+The cigarette flares, smoke filling your lungs as your shoulders finally drop.
+You take a deep drag, exhaling through your nose, eyes forward like you’re still being watched.
+]
+
+=><=
+(else:)[
+You light it on the second try.
+
+]
+
+[["Jesus I gotta get a grip"->event3]]
+
+
+:: Reach for your wallet {"position":"1225,450","size":"100,100"}
+=><=
+
+You comply, avoiding eye contact with the officer. 
+
+You reach into your bag for your wallet. As you take it out, something slips and lands against the seat — a bracelet you recognize instantly. 
+
+*"Shit"*
+
+The officer’s gaze lingers for a moment as you open your wallet, and hand the piece of plastic to them, eyes fixed to the dotted lines ahead. 
+
+
+The officer swiftly hands it back and waves you forward.
+
+
+[/[Continue driving? ->event2]]
+
+
+:: SilentCompliance {"position":"825,400","size":"100,100"}
+=><=
+
+(set: $reputation to $reputation + 0)
+(set: $compliance to $compliance + 1)
+
+You reach slowly for your wallet, keeping your eyes forward.
+
+The officer watches every movement, then relaxes slightly.
+
+|officer>["Thank you."]
+
+(set: $checkpointState to "compliant")
+[[Continue->event2]]
+
+
+
+:: Try to handle it yourself {"position":"725,1325","size":"100,100"}
+=><=
+
+<img src="images/blowout.png" alt="flashlight beam on a shredded tire on an empty road at night">
+
+(set: $calledHelp to false)
+(set: $heat to $heat + 1)
+
+You stare harder at the wheel and back bumpers as if the solution would hit you on the head. The sun is setting and damage is worse than you hoped.
+
+You’re not going anywhere anytime soon.
+
+(if: $heat >= 2)[(set: $riskState to "high")]
+(else-if: $heat >= 1)[(set: $riskState to "medium")]
+(else:)[(set: $riskState to "low")]
+
+[[Continue->arrival]]
+
+
+
+:: arrival {"position":"600,1450","size":"100,100"}
+=><=
+
+<img src="images/farmhouse.png" alt="a farmhouse with one light on at night, long driveway">
+
+hours later, the road takes you back.
+
+the tyre is replaced. the car runs again.
+
+you find the turnoff from her last message like it’s been waiting for you.
+
+a farmhouse. one porch light. everything else swallowed by trees.
+
+the gravel under your tyres sounds too loud.
+
+(set: $ending to "")
+
+(if: $riskState is "high")[
+  (set: $ending to "storm")
+]
+(else-if: $checkpointState is "defiant")[
+  (set: $ending to "storm")
+]
+(else-if: $coping is "reachout")[
+  (set: $ending to "reunion")
+]
+(else-if: $coping is "deny")[
+  (set: $ending to "silence")
+]
+(else:)[
+  (set: $ending to "uncertain")
+]
+
+(if: $ending is "storm")[
+  <img src="images/storm.png" alt="on the porch, she confronts mufudzi in the doorway">
+
+  you walk up to the door already angry, still carrying the stop in your chest.
+  the porch light catches your face and you hate how exposed it feels.
+
+  mufudzi opens the door and you don’t step forward. you don’t smile.
+
+  (enchant:?player, (text-style:"italic"))
+  |player>["what did you do?"]
+
+  she flinches, then hardens like you just proved her right.
+]
+(else-if: $ending is "reunion")[
+  <img src="images/reunion.png" alt="two sisters hugging under the porch light">
+
+  you chew on your lip, waiting for her to respond to your knock.
+  the door opens.
+
+  mufudzi’s eyes go wide and then she’s pulling you in so fast you nearly trip.
+  she’s shaking. you are too. but you’re here.
+
+  (enchant:?player, (text-style:"italic"))
+  |player>["i’m here. i’m here."]
+]
+(else-if: $ending is "silence")[
+  <img src="images/silence.png" alt="she hesitates on the porch while mufudzi watches from the doorway">
+
+  you sit in the car longer than you mean to.
+  the porch light waits. the door waits. you wait.
+
+  when you finally step out, the cold hits you like a slap.
+  mufudzi opens the door and you just… stand there.
+
+  you had words the whole drive.
+  now they won’t come.
+]
+(else:)[
+  <img src="images/uncertain.png" alt="mufudzi in the doorway, distant headlights behind her">
+
+  the door opens.
+
+  mufudzi looks past you, into the dark, like she’s counting the spaces between headlights.
+
+  (enchant:?mufudzi, (text-style:"italic"))
+  |mufudzi>["did they follow you?"]
+
+  you don’t know how to answer.
+]
+
+
+
+:: event1 {"position":"575,250","size":"100,100"}
+=><=
+
+<img src="images/pullover.png" alt="transportation officer at driver window, pulled over on the left shoulder">
+
+You finally see another human being but you immediately want to turn around. Traffic slows suddenly, funneling cars into a narrow lane marked by cones and signs you don't want to see.
+
+
+(enchant:?player, (text-style:"italic"))
+|player>["Oh, fuck me, man."]
+
+A transportation officer steps forward and gestures for you to pull over. 
+
+You pull over, exhaling slowly as you come to a stop. 
+
+Rolling the window down, they approach your car...
+
+(enchant:?officer, (text-style:"italic"))
+|officer>["...Good evening ma'am, just after your drivers license please."]
+
+[[Ask what this is about, calmly->AskCalm]]
+[[Snap back, irritated->AskRude]]
+[[Reach for your wallet without a word->SilentCompliance]]
+
+
+:: event2 {"position":"575,550","size":"100,100"}
+=><=
+
+The checkpoint disappears in your rearview mirror, but your grip on the wheel doesn’t loosen.
+
+You replay the interaction in your head. 
+
+The officer’s tone.
+
+The way they looked at you. 
+
+
+ (enchant:?player, (text-style:"italic"))
+  
+  |player>["He knew who I was...didn't he?"] 
+
+
+If something goes wrong, it won’t just affect you...
+
+[[Light a cigarette->Light a cigarette?]]
+[[Call Mama->Call Mama]]
+[["What if I've fucked everything?"->"What if I've fucked everything?"]]
+[["Everything is fine"]] 
+
+
+:: event3 {"position":"600,1000","size":"100,100"}
+=><=
+
+(if: $authority >= 1)[
+You keep both hands on the wheel, jaw tight. 
+
+(text-style: "rumble") + (text-size: 2)[BANG]
+
+]
+(else:)[
+As you flick the butt out the window, the sound comes without warning.
+
+(text-style: "rumble") + (text-size: 2)[BANG]
+
+]
+
+A sharp noise rings throughout your skull, the steering wheel jerking in your hands. Tears spring to your eyes.
+
+Fear.
+
+Exhaustion.
+
+You try to keep it together but you can't even keep the car on the road. 
+You fight the car into the emergency stopping lane as you hear the rubber flapping.
+
+Everything comes to a stop and you lick the tears from your lips. 
+
+(enchant:?player, (text-style:"italic"))
+|player>["I can't do this..." ]
+
+[[Get out of the car]]
+
+
+:: introduction {"position":"350,200","size":"100,100"}
+(set: $checkpointState to "unknown")
+(set: $riskState to "low")
+
+(set: $reputation to 0)
+(set: $authority to 0)
+(set: $defiance to 0)
+
+(set: $compliance to 0)
+(set: $CallMama to false)
+(set: $coping to "unknown")
+(set: $heat to 0)
+(set: $calledHelp to false)
+
+
+=><=
+ ###nothing out of the ordinary 
+ 
+ <img src="images/intro.png" alt="driving at dusk on an empty road, right-hand drive car">
+
+The neverending road stretches ahead of you, 100kms of absolute nothing, knuckles whitening at the wheel. You keep the air con blasting on your fingertips to keep you awake. 
+
+It’s been days since you last heard from your sister, Mufudzi, and her last message still echoes in your head. 
+
+(enchant:?Mufudzi, (text-style:"italic"))
+
+|Mufudzi>[ "For the better..."
+
+"For the better...."]
+
+You hear it again, like she’s in the car with you.
+
+She said she was safe. that you would see her soon — but to lay low.
+
+…and not tell a soul.
+
+
+You want to believe her — even if nothing about her disappearance feels right.
+
+She said it would all make sense soon. “For the better,” she promised.
+
+---
+
+ 
+[[Keep driving ->event1]]
+
+
+
+
+:: outro {"position":"750,1575","size":"100,100"}
+=><=
+(if: $calledHelp)[
+Your phone feels heavier in your hand than it should.
+Each time a car passes by, you flinch.
+]
+
+The road is quiet again.
+
+Somewhere ahead, your sister is waiting.
+
+For now, all you can do is sit with the choices you’ve made — and just pray they were the right ones.
+
+  (enchant:?player, (text-style:"italic"))
+|player>["Oh Mufudzi, what did you get yourself into?"]
+
+
+:: StoryStylesheet [stylesheet]
+/* ----------------------------
+   font
+----------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet"');
+
+/* ----------------------------
+   base + tone (scream palette)
+----------------------------- */
+
+html, body, tw-story {
+  background-color: #0f1a1f; /* deep blue-black */
+  color: #cfd6d3;            /* cold off-white */
+  margin: 0;
+}
+
+tw-story {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+tw-passage {
+  transition: none;
+}
+
+
+/* ----------------------------
+   image size
+----------------------------- */
+
+img {
+  max-width: 85%;
+  height: auto;
+  display: block;
+  margin: 1.5em auto;
+}
+
+
+/* ----------------------------
+   links
+----------------------------- */
+
+tw-link,
+tw-link:link,
+tw-link:visited,
+tw-story a,
+tw-passage a {
+  color: #7fa9a3 !important;   /* muted teal */
+  text-decoration: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+  transition: color 0.15s ease;
+}
+
+tw-link:hover,
+tw-story a:hover,
+tw-passage a:hover {
+  color: #420814 !important;   /* pale gray */
+}
+
+/* ----------------------------
+   header bar
+----------------------------- */
+
+#gameTitle {
+  font-family: 'Tiny5', serif;
+  font-size: 15em;
+  text-align: center;
+  padding: 0.8em 0;
+  background: #0a1216;         /* darker than body */
+  color: #cfd6d3;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #2a3b40;
+}
+
+/* ----------------------------
+   sidenote text
+----------------------------- */
+
+#sideNote {
+  position: fixed;
+  left: 4vw;
+  top: 45vh;
+  max-width: 14ch;
+  text-align: left;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #9fb5b0; /* faded teal-gray */
+  font-family: 'Tiny5', serif;
+}
+
+/* ----------------------------
+   utility
+----------------------------- */
+
+.hidden {
+  display: none;
+}
+
+.reveal {
+  color: #7fa9a3;
+  cursor: pointer;
+}
